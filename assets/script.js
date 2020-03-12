@@ -84,5 +84,51 @@ $(document).ready(function() {
   function stopTimer() {
     clearInterval(increment);
   };
-    
+
+  //Function to display the given response options
+  function createRadios() {
+    var responseOptions = $("#responses");
+    //Empty array for user answer
+    responseOptions.empty();
+      
+    for (var i = 0; i < questions[questionCounter].choices.length; i++) {
+      responseOptions.append('<label><input type="radio" name="optionsRadios" id="optionsRadios2" value="' + [i] +'"><div class="js-opt">' + questions[questionCounter].choices[i] + '</div></input><br></label>');
+    };
+  };
+  
+  //Function to display the given question
+  function displayQ() {
+    clearQ();
+    resetTimer();
+    $(".questionX").html(questions[questionCounter].question);
+    //Calling the function to display the response options
+    createRadios();
+    //Creating submit button
+    $("#submit-div").append('<button type="submit" class="btn btn-default" id="submit">' + "Submit" + '</button>');
+    runTimer()
+    submitAns();
+  };
+  
+  //Display start page
+  function displayStart() {
+    $("#content").append('<a href="#" class="btn btn-primary btn-lg" id="start-button">' + "Start" + '</a>');
+    //Start game
+    $("#start-button").on("click", function(event) {
+      event.preventDefault();
+      //Displays the first question
+      firstQ();
+      resetTimer();
+    });
+  };
+  
+  //Reset for end of game
+  function reset() {
+    questionCounter = 0;
+    correct = 0;
+    incorrect = 0;
+    missed = 0;
+    userAns = [];
+    resetTimer();
+  };
+
   });
